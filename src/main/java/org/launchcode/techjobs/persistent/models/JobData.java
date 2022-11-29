@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.persistent.models;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 
 // This is a change made in sandbox.
@@ -7,9 +8,10 @@ import java.util.ArrayList;
 /**
  * Created by LaunchCode
  */
-public class JobData {
+@Entity
+public class JobData extends AbstractEntity{
 
-
+    public JobData (){}
     /**
      * Returns the results of searching the Jobs data by field and search term.
      *
@@ -46,16 +48,17 @@ public class JobData {
     }
 
     public static String getFieldValue(Job job, String fieldName){
-        String theValue;
+        String theValue = "";
         if (fieldName.equals("name")){
             theValue = job.getName();
         } else if (fieldName.equals("employer")){
             theValue = job.getEmployer().toString();
-        } else {
+        } else if (fieldName.equals("employer")){
             theValue = job.getSkills().toString();
         }
 
         return theValue;
+        
     }
 
     /**
