@@ -6,14 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Skill extends AbstractEntity {
+public class Skill extends AbstractEntity {//tag
 
     public Skill (){}
 
-    @ManyToMany (mappedBy = "skills")
-    List<Job>jobs = new ArrayList<>();
+    @ManyToMany (mappedBy = "skills")//from skills field in job
+    public List<Job>jobs = new ArrayList<>();//list of indv. jobs
 
-    private String description;
+    public String description;
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+    }
 
     public String getDescription() {
         return description;

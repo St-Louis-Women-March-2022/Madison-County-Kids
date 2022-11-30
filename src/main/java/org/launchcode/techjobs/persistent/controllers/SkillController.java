@@ -40,18 +40,17 @@ public class SkillController {
     @PostMapping("add")
     public String processAddSkillForm(@ModelAttribute @Valid Skill newSkill,
                                       @ModelAttribute Job job, Errors errors, Model model) {
-
-//        model.addAttribute("employers", EmployerRepository.findAll());
-//        model.addAttribute("skills", skill.values());
-        model.addAttribute("job", job);
+            model.addAttribute("employers", employerRepository.findAll());
+            model.addAttribute("skills", skillRepository.findAll());
+            model.addAttribute("job", job);
 
         if (errors.hasErrors()) {
-//            model.addAttribute("skills", SkillRepository.findAll());
-            return "skills/add";
+            model.addAttribute("skills", skillRepository.findAll());
+              return "skills/add";
         }
 
         skillRepository.save(newSkill);
-//        model.addAttribute("skills", SkillRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
         return "redirect:";
     }
 
