@@ -59,9 +59,3 @@ public class EmployerController {
         return "employers/index";
     }
 }
-
-//  Add an index method that responds at /employers with a list
-//  of all employers in the database. This method should use
-//  the template employers/index. To figure out the name of
-//  the model attribute you should use to pass employers into
-//  the view, review this template.

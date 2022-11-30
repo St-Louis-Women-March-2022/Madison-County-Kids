@@ -16,8 +16,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-import static javax.swing.text.html.parser.DTDConstants.ID;
-
 /**
  * Created by LaunchCode
  */
@@ -40,7 +38,7 @@ public class HomeController {
     }
 
     @GetMapping("add")
-    public String displayAddJobForm(Model model) {
+    public String displayAddJobForm(Model model) {//I think I don't need an employerId here because I wouldn't have one yet.
         model.addAttribute("title", "Add Job");
         model.addAttribute(new Job());
         model.addAttribute("employers", employerRepository.findAll());
@@ -49,18 +47,32 @@ public class HomeController {
     }
 
     @PostMapping("add")
-    public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                       Errors errors, Model model) {//took out these params: @RequestParam int employerId, @RequestParam List<Integer> skills
+    public String processAddJobForm(Model model, @ModelAttribute @Valid Job newJob,
+                                       Errors errors, @RequestParam int employerId,
+                                    @RequestParam List<Integer> skills) {//double check skill or skills
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             return "add";}
 
-        //employer.id...add code inside of this method to select the employer
-        // object that has been chosen to be affiliated with the new job.
-        // You will need to select the employer using the request parameter
-        // you’ve added to the method.
-//        JobRepository.save(newJob);
+//        List <Skill> skills = (List<Skill>)SkillRepository.findAllById(inputSkills);
+//        newJob.setSkills(skills);
+//
+////        Employer employer = (Employer) optEmployer.get(employerId);
+////        employer = employerRepository.findById(employerId);
+////        Employer rightType = new Employer(employerId);
+////
+//////        newJob.setEmployer(employer);
+//
+////find the employerId in the employerRepository and bring it back
+//// Call that thing you bring back employer
+//        //set the Employer on newJob to employer
+//
+//
+//
+//        //do same with skills
+//        //jobRepository.save(newJob);
+
         return "redirect:";
     }
 
