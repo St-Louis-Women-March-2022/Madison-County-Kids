@@ -58,9 +58,13 @@ public class HomeController {
             return "add";
         }
 
-        Optional optEmployer = employerRepository.findById(employerId);//Optional is how reposity.findById comes back.
+        Optional optEmployer = employerRepository.findById (employerId);
+        if (optEmployer.isPresent()){
             Employer employer = (Employer) optEmployer.get();
-            newJob.setEmployer(Optional.of(employer));
+            model.addAttribute("employerId", employerId);
+            model.addAttribute("employers", employer);
+            return "list-jobs";
+        }
 
 ////    find the employerId in the employerRepository and bring it back
 ////    Call that thing you bring back employer
@@ -69,7 +73,7 @@ public class HomeController {
 //        List<Skill> wtf = (List<Skill>)skillRepository.findAllById(skills);
 //        newJob.setSkills(wtf);
 
-        jobRepository.save(newJob);
+//        jobRepository.save(newJob);
 
         return "redirect:";
     }
