@@ -44,31 +44,31 @@ public class HomeController {
         model.addAttribute(new Job());
         model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skills", skillRepository.findAll());
-//        model.addAttribute("job", jobRepository.findAll());
+        model.addAttribute("job", jobRepository.findAll());
         return "add";
     }
 
     @PostMapping("add")
     public String processAddJobForm(Model model, @ModelAttribute @Valid Job newJob,
                                        @RequestParam int employerId,
-                                    @RequestParam List<Integer> skills, Errors errors) {
+                                    @RequestParam (required=false) List<Integer> skills, Errors errors) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
-            model.addAttribute("skills", skillRepository.findAll());
-            model.addAttribute("employers", employerRepository.findAll());
             return "add";
         }
 
-//        String employer = String.valueOf(employerRepository.findById(employerId));
-//        newJob.setEmployer(employer);
-//
-////find the employerId in the employerRepository and bring it back
-//// Call that thing you bring back employer
-//        //set the Employer on newJob to employer
+        Optional optEmployer = employerRepository.findById(employerId);//Optional is how reposity.findById comes back.
+            Employer employer = (Employer) optEmployer.get();
+            newJob.setEmployer(Optional.of(employer));
 
-        List<Skill> wtf = (List<Skill>)skillRepository.findAllById(skills);
-        newJob.setSkills(wtf);
+////    find the employerId in the employerRepository and bring it back
+////    Call that thing you bring back employer
+//      set the Employer on newJob to employer
+
+//        List<Skill> wtf = (List<Skill>)skillRepository.findAllById(skills);
+//        newJob.setSkills(wtf);
+
         jobRepository.save(newJob);
 
         return "redirect:";
@@ -81,7 +81,6 @@ public class HomeController {
         if (optJob.isPresent()){
             Job job = (Job) optJob.get();
             model.addAttribute("jobId", jobId);
-            model.addAttribute("jobsById", jobRepository.findById(jobId));
             return "list-jobs";
         }
         return "redirect:.../";
@@ -111,7 +110,3 @@ public class HomeController {
         this.skillRepository = skillRepository;
     }
 }
-//HomeController should have an employerRepository field
-//verify that the field is autowired
-//Verifies that HomeController has an autowired EmployerRepository
-//Verifies that HomeController.displayAddJobForm calls employerRepository.findAll()

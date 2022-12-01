@@ -1,6 +1,5 @@
 package org.launchcode.techjobs.persistent.controllers;
 
-import org.launchcode.techjobs.persistent.models.Job;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
 import org.launchcode.techjobs.persistent.models.data.JobRepository;
@@ -27,9 +26,6 @@ public class SkillController {
     @Autowired
     private JobRepository jobRepository;
 
-    @Autowired
-    private EmployerRepository employerRepository;
-
     @GetMapping("add")
     public String displayAddSkillForm(Model model) {
         model.addAttribute("title", "Add Skill");
@@ -39,10 +35,7 @@ public class SkillController {
 
     @PostMapping("add")
     public String processAddSkillForm(@ModelAttribute @Valid Skill newSkill,
-                                      @ModelAttribute Job job, Errors errors, Model model) {
-            model.addAttribute("employers", employerRepository.findAll());
-            model.addAttribute("skills", skillRepository.findAll());
-            model.addAttribute("job", job);
+                                      Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("skills", skillRepository.findAll());
@@ -50,7 +43,6 @@ public class SkillController {
         }
 
         skillRepository.save(newSkill);
-        model.addAttribute("skills", skillRepository.findAll());
         return "redirect:";
     }
 

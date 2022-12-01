@@ -10,17 +10,17 @@ import java.util.Optional;
 public class Job extends AbstractEntity {
 
     @ManyToOne
-    @NotNull (message="Jobs must have employers!")
-    Employer employer;//changed type from Employer employer and redid getters\setters
+    @NotNull (message = "Employer is required.")
+    Optional<Employer> employer;
 
     @ManyToMany
-    private List<Skill> skills = new ArrayList<>();//tags
+    private List<Skill> skills = new ArrayList<>();
 
-    public Employer getEmployer() {
+    public Optional<Employer> getEmployer() {
         return employer;
     }
 
-    public void setEmployer(Employer employer) {
+    public void setEmployer(Optional<Employer> employer) {
         this.employer = employer;
     }
 
@@ -28,6 +28,7 @@ public class Job extends AbstractEntity {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills){this.skills =skills;}
-
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
 }

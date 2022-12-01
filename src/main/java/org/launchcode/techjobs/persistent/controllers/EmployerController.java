@@ -7,9 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.List;
+
 import java.util.Optional;
 
 import static javax.swing.text.html.parser.DTDConstants.ID;
@@ -24,14 +23,15 @@ public class EmployerController {
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
         model.addAttribute("title","Add Employer");
-        model.addAttribute(new Employer());
+        model.addAttribute("newEmployer", new Employer());
         return "employers/add";
     }
 
     @PostMapping("add")
-    public String processAddEmployerForm(@Valid @ModelAttribute Employer newEmployer, Errors errors, Model model) {
+    public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
+            model.addAttribute("employers", employerRepository.findAll());
             return "employers/add";
         }
 
@@ -42,7 +42,7 @@ public class EmployerController {
     @GetMapping("view/{employerId}")
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 
-        Optional optEmployer = employerRepository.findById(ID);
+        Optional optEmployer = employerRepository.findById(employerId);//Optional is how reposity.findById comes back.
         if (optEmployer.isPresent()) {
             Employer employer = (Employer) optEmployer.get();
             model.addAttribute("employer", employer);

@@ -8,8 +8,6 @@ import java.util.List;
 @Entity
 public class Skill extends AbstractEntity {//tag
 
-    public Skill (){}
-
     @ManyToMany (mappedBy = "skills")//from skills field in job
     public List<Job>jobs = new ArrayList<>();//list of indv. jobs
 
@@ -30,5 +28,4 @@ public class Skill extends AbstractEntity {//tag
     public void setDescription(String description) {
         this.description = description;
     }
-
 }
