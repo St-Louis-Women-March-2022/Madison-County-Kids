@@ -44,36 +44,32 @@ public class HomeController {
         model.addAttribute(new Job());
         model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skills", skillRepository.findAll());
-        model.addAttribute("job", jobRepository.findAll());
+        model.addAttribute("jobs", jobRepository.findAll());
         return "add";
     }
 
     @PostMapping("add")
-    public String processAddJobForm(Model model, @ModelAttribute @Valid Job newJob,
+    public String processAddJobForm(@ModelAttribute @Valid Job newJob, Errors errors, Model model,
                                        @RequestParam int employerId,
-                                    @RequestParam (required=false) List<Integer> skills, Errors errors) {
+                                    @RequestParam List<Integer> skills) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             return "add";
         }
 
+
         Optional optEmployer = employerRepository.findById (employerId);
         if (optEmployer.isPresent()){
             Employer employer = (Employer) optEmployer.get();
             model.addAttribute("employerId", employerId);
-            model.addAttribute("employers", employer);
-            return "list-jobs";
-        }
+            newJob.setEmployer(employer);
+        }//  find the employerId in the employerRepository and bring it back. Call that thing you bring back employer. set the Employer on newJob to employer
 
-////    find the employerId in the employerRepository and bring it back
-////    Call that thing you bring back employer
-//      set the Employer on newJob to employer
+        List<Skill> wtf = (List<Skill>)skillRepository.findAllById(skills);
+        newJob.setSkills(wtf);
 
-//        List<Skill> wtf = (List<Skill>)skillRepository.findAllById(skills);
-//        newJob.setSkills(wtf);
-
-//        jobRepository.save(newJob);
+        jobRepository.save(newJob);
 
         return "redirect:";
     }

@@ -2,6 +2,7 @@ package org.launchcode.techjobs.persistent.models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,12 @@ import java.util.List;
 public class Skill extends AbstractEntity {//tag
 
     @ManyToMany (mappedBy = "skills")//from skills field in job
+    @NotNull
     public List<Job>jobs = new ArrayList<>();//list of indv. jobs
 
     public String description;
+
+    public Skill(){}
 
     public List<Job> getJobs() {
         return jobs;

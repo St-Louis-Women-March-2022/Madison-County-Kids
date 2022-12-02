@@ -9,19 +9,27 @@ import java.util.Optional;
 @Entity
 public class Job extends AbstractEntity {
 
-    @ManyToOne
-    @NotNull (message = "Employer is required.")
-    Optional<Employer> employer;
+    public Job(){}
 
-    @ManyToMany
-    private List<Skill> skills = new ArrayList<>();
-
-    public Optional<Employer> getEmployer() {
-        return employer;
+    public Job(Employer newEmployer, List<Skill> skills){
+        super();
+        this.employers = newEmployer;
+        this.skills= skills;
     }
 
-    public void setEmployer(Optional<Employer> employer) {
-        this.employer = employer;
+    @ManyToOne
+    private Employer employers;
+
+    @ManyToMany
+    @NotNull (message = "Skill is required.")
+    private List<Skill> skills = new ArrayList<>();
+
+    public Employer getEmployer() {
+        return employers;
+    }
+
+    public void setEmployer(Employer employer) {
+        this.employers = employer;
     }
 
     public List<Skill> getSkills() {

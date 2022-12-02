@@ -17,11 +17,6 @@ public abstract class AbstractEntity {
     @Size (max= 100, message = "name must be less than 100 characters.")
     private String name;
 
-    public AbstractEntity (@Size(max= 100, message = "name must be less than 100 characters.") String name) {
-        this.name = name;
-    }
-
-    public AbstractEntity() {}
 
     public int getId() {
         return id;
