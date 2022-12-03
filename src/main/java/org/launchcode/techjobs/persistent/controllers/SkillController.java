@@ -17,7 +17,7 @@ import java.util.Optional;
 import static javax.swing.text.html.parser.DTDConstants.ID;
 
 @Controller
-@RequestMapping("skills")
+@RequestMapping("skills")//this works.  DON"T TOUCH
 public class SkillController {
 
     @Autowired
@@ -26,27 +26,27 @@ public class SkillController {
     @Autowired
     private JobRepository jobRepository;
 
-    @GetMapping("add")
+    @GetMapping("add")//this works.  DON"T TOUCH
     public String displayAddSkillForm(Model model) {
         model.addAttribute("title", "Add Skill");
         model.addAttribute(new Skill());
         return "skills/add";
     }
 
-    @PostMapping("add")
+    @PostMapping("add")//this works.  DON"T TOUCH
     public String processAddSkillForm(@ModelAttribute @Valid Skill newSkill,
                                       Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("skills", skillRepository.findAll());
-              return "skills/add";
+            return "skills/add";
         }
 
         skillRepository.save(newSkill);
         return "redirect:";
     }
 
-    @GetMapping("view/{skillId}")
+    @GetMapping("view/{skillId}")//this works.  DON"T TOUCH
     public String displayViewSkill(Model model, @PathVariable int skillId) {
 
         Optional optSkill = skillRepository.findById(skillId);
@@ -60,7 +60,7 @@ public class SkillController {
         }
     }
 
-    @GetMapping("")//displaySkillsIndex
+    @GetMapping("")//DON"T TOUCH//displaySkillsIndex
     public String index(Model model) {
         model.addAttribute("skills", skillRepository.findAll());
         return "skills/index";

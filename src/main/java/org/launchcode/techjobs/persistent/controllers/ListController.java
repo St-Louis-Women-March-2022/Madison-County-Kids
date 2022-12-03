@@ -37,13 +37,14 @@ public class ListController {
         columnChoices.put("skill", "Skill");
     }
 
-    @RequestMapping("")
+    @RequestMapping("")//NOT WORKING
     public String list(Model model) {
-
+        model.addAttribute("employers", employerRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
         return "list";
     }
 
-    @RequestMapping(value = "jobs")
+    @RequestMapping(value = "jobs")//NOT WORKING??
     public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
         Iterable<Job> jobs;
         if (column.toLowerCase().equals("all")){

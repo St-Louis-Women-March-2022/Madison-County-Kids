@@ -14,12 +14,12 @@ public class Employer extends AbstractEntity {
     public Employer () {}
 
     @NotNull(message = "location required")
-    @Size(max = 100, message = "location must be less than 100 characters.")
-    private String location;
+    @Size(min = 3, max = 15, message = "size must be between 3 and 15")
+    public String location;
 
     @OneToMany
     @JoinColumn (name="employer_id")
-    private List<Job> jobs = new ArrayList<>();
+    public List<Job> jobs = new ArrayList<>();
 
     public Employer(String location) {
         super();
