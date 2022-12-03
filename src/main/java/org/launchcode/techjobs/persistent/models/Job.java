@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.persistent.models;
 
+import javax.lang.model.element.Name;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -13,23 +14,23 @@ public class Job extends AbstractEntity {
 
     public Job(Employer newEmployer, List<Skill> skills){
         super();
-        this.employers = newEmployer;
+        this.employer = newEmployer;
         this.skills= skills;
     }
 
     @ManyToOne
-    private Employer employers;
+    private Employer employer;
 
     @ManyToMany
     @NotNull (message = "Skill is required.")
     private List<Skill> skills = new ArrayList<>();
 
     public Employer getEmployer() {
-        return employers;
+        return employer;
     }
 
     public void setEmployer(Employer employer) {
-        this.employers = employer;
+        this.employer = employer;
     }
 
     public List<Skill> getSkills() {

@@ -14,20 +14,20 @@ import java.util.Optional;
 import static javax.swing.text.html.parser.DTDConstants.ID;
 
 @Controller
-@RequestMapping("employers")
+@RequestMapping("employers")//this works.  DON"T TOUCH
 public class EmployerController {
 
     @Autowired
     private EmployerRepository employerRepository;
 
-    @GetMapping("add")
+    @GetMapping("add")//this works.  DON"T TOUCH
     public String displayAddEmployerForm(Model model) {
         model.addAttribute("title","Add Employer");
         model.addAttribute("employer", new Employer());
         return "employers/add";
     }
 
-    @PostMapping("add")
+    @PostMapping("add")//this works.  DON"T TOUCH
     public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
@@ -39,21 +39,21 @@ public class EmployerController {
         return "redirect:";
     }
 
-    @GetMapping("view/{employerId}")
+    @GetMapping("view/{employerId}")//this works.  DON"T TOUCH
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 
         Optional optEmployer = employerRepository.findById(employerId);//Optional is how reposity.findById comes back.
         if (optEmployer.isPresent()) {
             Employer employer = (Employer) optEmployer.get();
             model.addAttribute("employer", employer);
-            return "employers/view";
+           return "employers/view";
 
         } else {
             return "redirect:../";
         }
     }
 
-    @GetMapping("")//displayEmployersIndex
+    @GetMapping("")//displayEmployersIndex: //this works.  DON"T TOUCH
     public String index (Model model) {
         model.addAttribute("employers", employerRepository.findAll());
         return "employers/index";
