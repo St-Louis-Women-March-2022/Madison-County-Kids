@@ -38,24 +38,22 @@ public class SearchController {
     }
 
     @PostMapping("results")//NOT
-    public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm, @RequestParam List allJobs){
-        Iterable<Job> jobs = jobRepository.findAll();
+    public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
+        Iterable<Job> jobs;
 
-        model.addAttribute("value", "searchTerm");
-        model.addAttribute("column", "searchType");
-
-        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("") || searchTerm.isEmpty() || searchTerm.isBlank()){
-            jobs = JobData.findByColumnAndValue(searchType, searchTerm, jobs);
-            return "search";
+        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("")) {
+            jobs = jobRepository.findAll();
 
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm, jobRepository.findAll());
+        }
             model.addAttribute("jobs", jobs);
             model.addAttribute("columns", columnChoices);
             model.addAttribute("title", "Jobs with " + columnChoices.get(searchType) + ": " + searchTerm);
+            model.addAttribute("value", "searchTerm");
+            model.addAttribute("allJobs", jobRepository.findAll());
             return "search";
         }
-    }
 }
 //if we have nothing or all
 //jobs is the whole job repository

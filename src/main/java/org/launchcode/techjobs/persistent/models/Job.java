@@ -10,6 +10,13 @@ import java.util.Optional;
 @Entity
 public class Job extends AbstractEntity {
 
+    @ManyToOne
+    public Employer employer;
+
+    @ManyToMany
+    @NotNull (message = "Skill is required.")
+    public List<Skill> skills;
+
     public Job(){}
 
     public Job(Employer newEmployer, List<Skill> skills){
@@ -17,13 +24,6 @@ public class Job extends AbstractEntity {
         this.employer = newEmployer;
         this.skills= skills;
     }
-
-    @ManyToOne
-    public Employer employer;
-
-    @ManyToMany
-    @NotNull (message = "Skill is required.")
-    public List<Skill> skills = new ArrayList<>();
 
     public Employer getEmployer() {
         return employer;
