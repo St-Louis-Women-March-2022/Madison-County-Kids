@@ -39,13 +39,13 @@ public class SearchController {
 
     @PostMapping("results")//NOT
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm, @RequestParam List allJobs){
-        Iterable<Job> jobs;
+        Iterable<Job> jobs = jobRepository.findAll();
+
+        model.addAttribute("value", "searchTerm");
+        model.addAttribute("column", "searchType");
 
         if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("") || searchTerm.isEmpty() || searchTerm.isBlank()){
-            column = searchType;
-            value = searchTerm;
-            jobs = JobData.findByColumnAndValue(column, value, <Job> allJobs);
-
+            jobs = JobData.findByColumnAndValue(searchType, searchTerm, jobs);
             return "search";
 
         } else {
