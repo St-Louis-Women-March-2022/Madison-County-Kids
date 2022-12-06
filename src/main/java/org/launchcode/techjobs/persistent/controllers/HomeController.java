@@ -42,9 +42,8 @@ public class HomeController {
     public String displayAddJobForm(Model model) {//Took this out: , @ModelAttribute @Valid Job newJob, @RequestParam List<Integer> skills, Errors errors
         model.addAttribute("title", "Add Job");
         model.addAttribute(new Job());
-        model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skills", skillRepository.findAll());
-        model.addAttribute("jobs", jobRepository.findAll());
+        model.addAttribute("employers", employerRepository.findAll());
         return "add";
     }
 
