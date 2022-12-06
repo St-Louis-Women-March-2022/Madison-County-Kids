@@ -23,7 +23,7 @@ public class EmployerController {
     @GetMapping("add")//DON"T TOUCH
     public String displayAddEmployerForm(Model model) {
         model.addAttribute("title","Add Employer");
-        model.addAttribute("employer", new Employer());
+        model.addAttribute (new Employer());
         return "employers/add";
     }
 
@@ -53,7 +53,7 @@ public class EmployerController {
         }
     }
 
-    @GetMapping("")//DON"T TOUCH
+    @RequestMapping("")//DON"T TOUCH
     public String index (Model model) {
         model.addAttribute("employers", employerRepository.findAll());
         return "employers/index";

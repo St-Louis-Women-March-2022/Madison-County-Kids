@@ -42,7 +42,7 @@ public class HomeController {
     public String displayAddJobForm(Model model) {//Took this out: , @ModelAttribute @Valid Job newJob, @RequestParam List<Integer> skills, Errors errors
         model.addAttribute("title", "Add Job");
         model.addAttribute(new Job());
-        model.addAttribute("employers", employerRepository.findAll());//WHY AM I FAILING THIS TEST?
+        model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skills", skillRepository.findAll());
         model.addAttribute("jobs", jobRepository.findAll());
         return "add";
@@ -55,6 +55,7 @@ public class HomeController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
+            model.addAttribute("employers", employerRepository.findAll());
             return "add";
         }
 
@@ -76,13 +77,13 @@ public class HomeController {
     @GetMapping("view/{jobId}")////DON"T TOUCH
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
-        Optional <Job> optJob = jobRepository.findById(jobId);
+        Optional optJob = jobRepository.findById(jobId);
         if (optJob.isPresent()){
             Job job = (Job) optJob.get();
             model.addAttribute("job", job);
             return "view";
         }
-        return "redirect:.../";
+        else {return "redirect:.../";}
     }
 
     public EmployerRepository getEmployerRepository() {

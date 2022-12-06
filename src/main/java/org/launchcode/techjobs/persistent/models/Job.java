@@ -14,15 +14,16 @@ public class Job extends AbstractEntity {
     public Employer employer;
 
     @ManyToMany
-    @NotNull (message = "Skill is required.")
-    public List<Skill> skills;
+    @NotNull(message = "Skill is required.")
+    public List<Skill> skills = new ArrayList<>();
 
-    public Job(){}
+    public Job() {
+    }
 
-    public Job(Employer newEmployer, List<Skill> skills){
+    public Job(Employer newEmployer, List<Skill> skills) {
         super();
         this.employer = newEmployer;
-        this.skills= skills;
+        this.skills = skills;
     }
 
     public Employer getEmployer() {
