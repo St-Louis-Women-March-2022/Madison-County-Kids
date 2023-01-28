@@ -39,7 +39,7 @@ public class HomeController {
     }
 
     @GetMapping("add")//DON"T TOUCH
-    public String displayAddJobForm(Model model) {//Took this out: , @ModelAttribute @Valid Job newJob, @RequestParam List<Integer> skills, Errors errors
+    public String displayAddJobForm(Model model) {
         model.addAttribute("title", "Add Job");
         model.addAttribute(new Job());
         model.addAttribute("skills", skillRepository.findAll());

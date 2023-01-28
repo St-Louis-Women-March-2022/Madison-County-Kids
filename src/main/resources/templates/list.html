@@ -8,14 +8,14 @@
 
 <div class="container body-content">
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
-    <h2 class = "centered">View Jobs By Category</h2>
+    <h2 class = "centered">View Jobs By Category</h2><!--was View Jobs By Category-->
 </div>
 
 <table class="centeredTable">
     <tr>
-        <th>All</th>
-        <th>Employer</th>
-        <th>Skill</th>
+        <th>All</th><!--was All-->
+        <th>Employer</th><!--was Employer-->
+        <th>Skill</th><!--was Skill-->
     </tr>
 
     <tr>
@@ -25,7 +25,7 @@
             </li>
         </td>
         <td>
-            <li th:each="employer : ${employers}">
+            <li th:each="employer : ${employers}"><!--was employers-->
                 <a th:href="@{/list/jobs(column=employer,value=${employer.name})}" th:text="${employer.name}"></a>
             </li>
         </td>
